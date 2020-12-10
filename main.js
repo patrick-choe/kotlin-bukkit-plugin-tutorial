@@ -21,7 +21,7 @@ function setup() {
         el.onclick = async e => {
             e.preventDefault();
             history.pushState(null, null, `?url=${new URL(el.href).pathname}`);
-            const result = await fetch(new URL(el.href, location.href).href);
+            const result = await fetch(new URL(el.href, location.search.replace('?url=', '')).href);
             const text = await result.text();
             document.getElementById('main').innerHTML = marked(text);
             setup();
