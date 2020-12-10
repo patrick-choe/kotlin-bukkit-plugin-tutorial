@@ -20,7 +20,7 @@ function setup() {
     document.querySelectorAll('a').forEach(el => {
         el.onclick = async e => {
             e.preventDefault();
-            history.pushState(null, null, `?url=${el.href}`);
+            history.pushState(null, null, `?url=${new URL(el.href).pathname}`);
             const result = await fetch(el.href);
             const text = await result.text();
             document.getElementById('main').innerHTML = marked(text);
