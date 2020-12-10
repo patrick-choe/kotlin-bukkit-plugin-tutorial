@@ -20,7 +20,7 @@ function setup() {
     document.querySelectorAll('a').forEach(el => {
         el.onclick = async e => {
             e.preventDefault();
-            history.pushState(null, null, `?url=${new URL(el.href).pathname}`);
+            history.pushState(null, null, `?url=${new URL(el.getAttribute('href'), `${location.protocol}//${location.hostname}${location.search.replace('?url=', '')}`).pathname}`);
             const result = await fetch(new URL(el.getAttribute('href'), `${location.protocol}//${location.hostname}${location.search.replace('?url=', '')}`).href);
             const text = await result.text();
             document.getElementById('main').innerHTML = marked(text);
