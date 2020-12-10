@@ -6,7 +6,7 @@ window.onload = async () => {
         console.log(e.code);
     }
 
-    let url = '/README.md';
+    let url = 'README.md';
     if(window.location.search.includes('?url=')) url = window.location.search.replace('?url=', '');
 
     const result = await fetch(url);
