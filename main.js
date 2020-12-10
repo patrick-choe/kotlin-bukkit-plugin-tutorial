@@ -1,9 +1,10 @@
-let prev_url = '';
-let next_url = '';
+let prev_url;
+let next_url;
 
 window.onload = async () => {
-    window.onkeypress = e => {
-        console.log(e.code);
+    window.onkeydown = e => {
+        if(e.code == 'ArrowLeft') prev_url.click();
+        if(e.code == 'ArrowRight') next_url.click();
     }
 
     let url = 'README.md';
@@ -18,6 +19,9 @@ window.onload = async () => {
 }
 
 function setup() {
+    prev_url = null;
+    next_url = null;
+
     document.querySelectorAll('a').forEach(el => {
         el.onclick = async e => {
             if(!el.getAttribute('href').startsWith('#')) e.preventDefault();
@@ -29,8 +33,8 @@ function setup() {
             document.getElementById('main').innerHTML = marked(text);
             setup();
 
-            if(el.innerHTML.includes('<--')) prev_url = el.href;
-            if(el.innerHTML.includes('-->')) next_url = el.href;
+            if(el.innerHTML.includes('<--')) prev_url = el;
+            if(el.innerHTML.includes('-->')) next_url = el;
         }
     });
 }
