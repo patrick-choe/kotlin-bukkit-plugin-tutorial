@@ -33,8 +33,8 @@ function setup() {
             document.getElementById('main').innerHTML = marked(text);
             setup();
 
-            if(el.innerHTML.includes('<--')) prev_url = el;
-            if(el.innerHTML.includes('-->')) next_url = el;
+            if(el.innerHTML.includes('$lt;--')) prev_url = el;
+            if(el.innerHTML.includes('--$gt;')) next_url = el;
         }
     });
 }
