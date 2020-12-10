@@ -32,9 +32,9 @@ function setup() {
             const text = await result.text();
             document.getElementById('main').innerHTML = marked(text);
             setup();
-
-            if(el.innerText.includes('<--')) prev_url = el;
-            if(el.innerText.includes('-->')) next_url = el;
         }
+
+        if(el.innerText.includes('<--')) prev_url = el;
+        if(el.innerText.includes('-->')) next_url = el;
     });
 }
