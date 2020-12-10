@@ -1,14 +1,14 @@
-let prev_url;
-let next_url;
+let prev;
+let next;
 
 window.onload = async () => {
     window.onkeydown = e => {
-        if(e.code == 'ArrowLeft') prev_url.click();
-        if(e.code == 'ArrowRight') next_url.click();
+        if (e.code == 'ArrowLeft' && prev != null) prev.click();
+        if (e.code == 'ArrowRight' && prev != null) next.click();
     }
 
     let url = 'README.md';
-    if(window.location.search.includes('?url=')) url = window.location.search.replace('?url=', '');
+    if (window.location.search.includes('?url=')) url = window.location.search.replace('?url=', '');
     else history.pushState(null, null, '?url=/kotlin-bukkit-plugin-tutorial/README.md');
 
     const result = await fetch(url);
@@ -19,12 +19,14 @@ window.onload = async () => {
 }
 
 function setup() {
-    prev_url = null;
-    next_url = null;
+    prev = null;
+    next = null;
 
     document.querySelectorAll('a').forEach(el => {
         el.onclick = async e => {
-            if(!el.getAttribute('href').startsWith('#')) e.preventDefault();
+            if(el.hidden) return;
+            el.hidden = true;
+            if (!el.getAttribute('href').startsWith('#')) e.preventDefault();
             else return;
             console.log(el.getAttribute('href'));
             history.pushState(null, null, `?url=${new URL(el.getAttribute('href'), decodeURIComponent(`${location.protocol}//${location.hostname}${location.search.replace('?url=', '')}`)).pathname}`);
@@ -34,7 +36,7 @@ function setup() {
             setup();
         }
 
-        if(el.innerText.includes('<--')) prev_url = el;
-        if(el.innerText.includes('-->')) next_url = el;
+        if (el.innerText.includes('<--')) prev = el;
+        if (el.innerText.includes('-->')) next = el;
     });
 }
