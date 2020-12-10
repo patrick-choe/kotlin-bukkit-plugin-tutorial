@@ -20,7 +20,7 @@ window.onload = async () => {
 function setup() {
     document.querySelectorAll('a').forEach(el => {
         el.onclick = async e => {
-            e.preventDefault();
+            if(!el.getAttribute('href').startsWith('#')) e.preventDefault();
             console.log(el.getAttribute('href'));
             history.pushState(null, null, `?url=${new URL(el.getAttribute('href'), decodeURIComponent(`${location.protocol}//${location.hostname}${location.search.replace('?url=', '')}`)).pathname}`);
             const result = await fetch(decodeURIComponent(location.search.replace('?url=', '')));
