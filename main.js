@@ -8,6 +8,7 @@ window.onload = async () => {
 
     let url = 'README.md';
     if(window.location.search.includes('?url=')) url = window.location.search.replace('?url=', '');
+    else history.pushState(null, null, '?url=/kotlin-bukkit-plugin-tutorial/README.md');
 
     const result = await fetch(url);
     const text = await result.text();
